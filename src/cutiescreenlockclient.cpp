@@ -12,31 +12,31 @@ CutieScreenLock::CutieScreenLock(QObject *parent)
 	, m_iface(QString::fromLatin1(kService), QString::fromLatin1(kPath),
 		  QString::fromLatin1(kInterface), QDBusConnection::sessionBus())
 {
-	auto *bus = &QDBusConnection::sessionBus();
+	QDBusConnection bus = QDBusConnection::sessionBus();
 
-	bus->connect(QString::fromLatin1(kService), QString::fromLatin1(kPath),
-		     QString::fromLatin1(kInterface),
-		     QStringLiteral("methodChanged"), this,
-		     SIGNAL(methodChanged()));
+	bus.connect(QString::fromLatin1(kService), QString::fromLatin1(kPath),
+		    QString::fromLatin1(kInterface),
+		    QStringLiteral("methodChanged"), this,
+		    SIGNAL(methodChanged()));
 
-	bus->connect(QString::fromLatin1(kService), QString::fromLatin1(kPath),
-		     QString::fromLatin1(kInterface),
-		     QStringLiteral("unlocked"), this, SIGNAL(unlocked()));
+	bus.connect(QString::fromLatin1(kService), QString::fromLatin1(kPath),
+		    QString::fromLatin1(kInterface),
+		    QStringLiteral("unlocked"), this, SIGNAL(unlocked()));
 
-	bus->connect(QString::fromLatin1(kService), QString::fromLatin1(kPath),
-		     QString::fromLatin1(kInterface),
-		     QStringLiteral("passwordAuthResult"), this,
-		     SIGNAL(passwordAuthResult(bool, QString)));
+	bus.connect(QString::fromLatin1(kService), QString::fromLatin1(kPath),
+		    QString::fromLatin1(kInterface),
+		    QStringLiteral("passwordAuthResult"), this,
+		    SIGNAL(passwordAuthResult(bool, QString)));
 
-	bus->connect(QString::fromLatin1(kService), QString::fromLatin1(kPath),
-		     QString::fromLatin1(kInterface),
-		     QStringLiteral("authenticatingChanged"), this,
-		     SLOT(_refreshAuthenticating()));
+	bus.connect(QString::fromLatin1(kService), QString::fromLatin1(kPath),
+		    QString::fromLatin1(kInterface),
+		    QStringLiteral("authenticatingChanged"), this,
+		    SLOT(_refreshAuthenticating()));
 
-	bus->connect(QString::fromLatin1(kService), QString::fromLatin1(kPath),
-		     QString::fromLatin1(kInterface),
-		     QStringLiteral("lockoutSecondsRemainingChanged"), this,
-		     SLOT(_refreshLockoutSecondsRemaining()));
+	bus.connect(QString::fromLatin1(kService), QString::fromLatin1(kPath),
+		    QString::fromLatin1(kInterface),
+		    QStringLiteral("lockoutSecondsRemainingChanged"), this,
+		    SLOT(_refreshLockoutSecondsRemaining()));
 }
 
 bool CutieScreenLock::isAvailable() const
