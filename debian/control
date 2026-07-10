@@ -2,8 +2,7 @@ Source: libcutiescreenlock
 Section: libs
 Maintainer: Cutie Shell Developers <admin@cutie-shell.org>
 Priority: optional
-Build-Depends: debhelper-compat (= 12),
-               cmake,
+Build-Depends: cmake,
                qt6-base-dev,
                qt6-declarative-dev,
                pkg-config,
