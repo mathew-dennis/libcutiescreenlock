@@ -69,6 +69,6 @@ class CutieScreenLock : public QObject {
 	void _onServiceUnregistered();
 
     private:
-	QDBusInterface m_iface;
+	QDBusInterface *m_iface;
 	QDBusServiceWatcher *m_serviceWatcher;
 };
