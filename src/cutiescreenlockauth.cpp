@@ -112,13 +112,13 @@ CutieScreenLockAuthority::CutieScreenLockAuthority(QObject *parent)
 
 	// This is the sole D-Bus endpoint for screen-lock state. Both
 	// cutie-panel's own Lockscreen.qml and cutie-settings talk to it
-	// exclusively through the CutieScreenLock QML type (see screenlockclient.*),
+	// exclusively through the CutieScreenLock QML type (see cutiescreenlockclient.*),
 	// never directly - so there's exactly one code path for "check this
 	// secret" / "change the method" regardless of which process asks.
 	QDBusConnection::sessionBus().registerService(
-		QStringLiteral("org.cutie_shell.ScreenLock"));
+		QStringLiteral("org.cutie_shell.CutieScreenLock"));
 	QDBusConnection::sessionBus().registerObject(
-		QStringLiteral("/ScreenLock"), this,
+		QStringLiteral("/CutieScreenLock"), this,
 		QDBusConnection::ExportScriptableProperties |
 			QDBusConnection::ExportScriptableInvokables |
 			QDBusConnection::ExportScriptableSignals);

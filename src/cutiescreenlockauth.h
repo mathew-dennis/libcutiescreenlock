@@ -26,7 +26,7 @@ class PamAuthWorker : public QObject {
 //    password, via the setuid unix_chkpwd helper - no special privileges
 //    needed).
 //  - Salted+stretched local hashes for "pin"/"pattern" mode.
-//  - The org.cutie_shell.ScreenLock D-Bus service that CutieScreenLock (the
+//  - The org.cutie_shell.CutieScreenLock D-Bus service that CutieScreenLock (the
 //    client type in this same module) talks to.
 //
 // Intentionally NOT registered as a QML type. There must be exactly one
@@ -37,7 +37,7 @@ class PamAuthWorker : public QObject {
 // the CutieScreenLock QML type instead, even in-process.
 class CutieScreenLockAuthority : public QObject {
 	Q_OBJECT
-	Q_CLASSINFO("D-Bus Interface", "org.cutie_shell.ScreenLock")
+	Q_CLASSINFO("D-Bus Interface", "org.cutie_shell.CutieScreenLock")
 
 	Q_SCRIPTABLE Q_PROPERTY(bool authenticating READ authenticating NOTIFY
 					 authenticatingChanged)

@@ -19,7 +19,7 @@ Depends: ${misc:Depends},
          libpam-runtime
 Description: Screen-lock authentication engine for Cutie Shell.
  PAM-backed password auth plus locally hashed PIN/pattern secrets,
- exposed over D-Bus as org.cutie_shell.ScreenLock.
+ exposed over D-Bus as org.cutie_shell.CutieScreenLock.
 
 Package: qml6-module-cutiescreenlock
 Section: libs
@@ -31,7 +31,7 @@ Depends: ${misc:Depends},
          libcutiescreenlock (= ${binary:Version})
 Description: Cutie.ScreenLock QML module.
  Provides the CutieScreenLock QML type (a D-Bus client for
- org.cutie_shell.ScreenLock) plus the PinPad and PatternLock QML
+ org.cutie_shell.CutieScreenLock) plus the PinPad and PatternLock QML
  components, for use by cutie-panel's lockscreen and cutie-settings.
 
 Package: libcutiescreenlock-dev

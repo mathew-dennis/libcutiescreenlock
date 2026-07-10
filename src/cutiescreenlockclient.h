@@ -10,7 +10,7 @@
 // goes through this, so there is exactly one client implementation instead
 // of each app hand-rolling its own D-Bus calls.
 //
-// import Cutie.CutieScreenLock
+// import Cutie.ScreenLock
 // CutieScreenLock { id: screenLock }
 class CutieScreenLock : public QObject {
 	Q_OBJECT
