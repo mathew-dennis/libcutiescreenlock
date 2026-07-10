@@ -48,6 +48,7 @@ qt_add_qml_module(qmlcutiescreenlockplugin
 	URI Cutie.ScreenLock
 	VERSION 1.0
 	PLUGIN_TARGET qmlcutiescreenlockplugin
+	OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/Cutie/ScreenLock
 	SOURCES
 		src/cutiescreenlockclient.h
 		src/cutiescreenlockclient.cpp
@@ -56,9 +57,15 @@ qt_add_qml_module(qmlcutiescreenlockplugin
 		src/qml/Cutie/ScreenLock/PatternLock.qml
 )
 
+# The generated qmltyperegistrations.cpp does `#include <cutiescreenlockclient.h>`
+# (angle brackets, i.e. it needs the header on the include path, not just
+# reachable by relative source path) - without this, that generated file
+# can't see the class at all.
+target_include_directories(qmlcutiescreenlockplugin PRIVATE src)
+
 target_link_libraries(qmlcutiescreenlockplugin PRIVATE Qt::Core Qt::Qml Qt::DBus)
 
 install(TARGETS qmlcutiescreenlockplugin
 	DESTINATION "${CMAKE_INSTALL_LIBDIR}/qt6/qml/Cutie/ScreenLock")
-install(FILES "${CMAKE_CURRENT_BINARY_DIR}/qmldir"
+install(FILES "${CMAKE_CURRENT_BINARY_DIR}/Cutie/ScreenLock/qmldir"
 	DESTINATION "${CMAKE_INSTALL_LIBDIR}/qt6/qml/Cutie/ScreenLock")
