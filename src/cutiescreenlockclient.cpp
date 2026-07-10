@@ -37,11 +37,44 @@ CutieScreenLock::CutieScreenLock(QObject *parent)
 		    QString::fromLatin1(kInterface),
 		    QStringLiteral("lockoutSecondsRemainingChanged"), this,
 		    SLOT(_refreshLockoutSecondsRemaining()));
+
+	// cutie-settings and cutie-panel start independently - whichever
+	// starts first must not get stuck assuming the other is permanently
+	// absent. This watches the actual bus for the service coming and
+	// going, so `available` (and everything gated on it in QML) updates
+	// live instead of being frozen at whatever was true when this object
+	// happened to be constructed.
+	m_serviceWatcher = new QDBusServiceWatcher(
+		QString::fromLatin1(kService), bus,
+		QDBusServiceWatcher::WatchForRegistration |
+			QDBusServiceWatcher::WatchForUnregistration,
+		this);
+	connect(m_serviceWatcher, &QDBusServiceWatcher::serviceRegistered, this,
+		&CutieScreenLock::_onServiceRegistered);
+	connect(m_serviceWatcher, &QDBusServiceWatcher::serviceUnregistered,
+		this, &CutieScreenLock::_onServiceUnregistered);
 }
 
-bool CutieScreenLock::isAvailable() const
+bool CutieScreenLock::available() const
 {
 	return m_iface.isValid();
+}
+
+void CutieScreenLock::_onServiceRegistered()
+{
+	// The service just appeared - re-check validity (QDBusInterface
+	// doesn't always self-update the instant this fires) and refresh
+	// everything that may have been serving stale defaults while it was
+	// down.
+	Q_EMIT availableChanged();
+	Q_EMIT methodChanged();
+	Q_EMIT authenticatingChanged();
+	Q_EMIT lockoutSecondsRemainingChanged();
+}
+
+void CutieScreenLock::_onServiceUnregistered()
+{
+	Q_EMIT availableChanged();
 }
 
 QString CutieScreenLock::method() const
