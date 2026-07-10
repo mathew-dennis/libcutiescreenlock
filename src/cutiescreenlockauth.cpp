@@ -99,7 +99,7 @@ CutieScreenLockAuthority::CutieScreenLockAuthority(QObject *parent)
 		&CutieScreenLockAuthority::onPamFinished);
 	m_pamThread.start();
 
-	m_method = m_settings.value("method", "none").toString();
+	m_method = m_settings.value("method", "pattern").toString();
 
 	connect(&m_lockoutTimer, &QTimer::timeout, this,
 		&CutieScreenLockAuthority::onLockoutTick);
