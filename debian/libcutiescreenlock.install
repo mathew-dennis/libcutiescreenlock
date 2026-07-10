@@ -1,0 +1,2 @@
+usr/lib/*/libcutiescreenlock.so.*
+debian/pam.d.cutie-lockscreen etc/pam.d/cutie-lockscreen

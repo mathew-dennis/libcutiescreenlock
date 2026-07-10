@@ -1,0 +1,4 @@
+# PAM service for CutieScreenLockAuthority's "password" unlock method.
+# Reuses the distro's standard auth/account stack (same as login, sudo).
+@include common-auth
+@include common-account

@@ -1,0 +1,47 @@
+Source: libcutiescreenlock
+Section: libs
+Maintainer: Cutie Shell Developers <admin@cutie-shell.org>
+Priority: optional
+Build-Depends: debhelper-compat (= 12),
+               cmake,
+               qt6-base-dev,
+               qt6-declarative-dev,
+               pkg-config,
+               libpam0g-dev
+Standards-Version: 4.5.1
+
+Package: libcutiescreenlock
+Section: libs
+Architecture: any
+Multi-Arch: same
+Pre-Depends: ${misc:Pre-Depends}
+Depends: ${misc:Depends},
+         ${shlibs:Depends},
+         libpam-runtime
+Description: Screen-lock authentication engine for Cutie Shell.
+ PAM-backed password auth plus locally hashed PIN/pattern secrets,
+ exposed over D-Bus as org.cutie_shell.ScreenLock.
+
+Package: qml6-module-cutiescreenlock
+Section: libs
+Architecture: any
+Multi-Arch: same
+Pre-Depends: ${misc:Pre-Depends}
+Depends: ${misc:Depends},
+         ${shlibs:Depends},
+         libcutiescreenlock (= ${binary:Version})
+Description: Cutie.ScreenLock QML module.
+ Provides the CutieScreenLock QML type (a D-Bus client for
+ org.cutie_shell.ScreenLock) plus the PinPad and PatternLock QML
+ components, for use by cutie-panel's lockscreen and cutie-settings.
+
+Package: libcutiescreenlock-dev
+Section: libdevel
+Architecture: any
+Multi-Arch: same
+Depends: ${misc:Depends},
+         libcutiescreenlock (= ${binary:Version})
+Description: Development files for libcutiescreenlock.
+ Headers needed to link CutieScreenLockAuthority directly (cutie-panel
+ only - everything else should use the Cutie.ScreenLock QML module
+ instead).
