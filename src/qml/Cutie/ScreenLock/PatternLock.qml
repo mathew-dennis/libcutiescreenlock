@@ -51,6 +51,7 @@ Item {
 	function reset() {
 		visited = [];
 		dragging = false;
+		_cursor = null;
 		canvas.requestPaint();
 	}
 
@@ -98,6 +99,7 @@ Item {
 			var n = patternLock._nodeAt(mouse.x, mouse.y);
 			patternLock.visited = n ? [n.index] : [];
 			patternLock.dragging = true;
+			patternLock._cursor = { x: mouse.x, y: mouse.y };
 			canvas.requestPaint();
 		}
 
